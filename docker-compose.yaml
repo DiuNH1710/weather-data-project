@@ -18,7 +18,7 @@ services:
     container_name: airflow
     image: apache/airflow:3.0.0
     environment:
-      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@db:5432/airflow_db
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://db_user:db_password@db:5432/db
 
     ports:
       - "8000:8080"
@@ -27,6 +27,9 @@ services:
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./api-request:/opt/airflow/api-request
+      - /var/run/docker.sock:/var/run/docker.sock
+    group_add:
+      - '1001'
     networks:
       - my_network
     command: >
