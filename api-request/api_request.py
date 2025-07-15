@@ -2,7 +2,9 @@ import requests
 import os
 from dotenv import load_dotenv
 
+load_dotenv() 
 api_key=os.getenv("API_KEY")
+
 
 api_url = f"http://api.weatherstack.com/current?access_key={api_key}&query=New York"
 
