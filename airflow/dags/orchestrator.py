@@ -1,7 +1,9 @@
 from airflow import DAG
 from airflow.providers.standard.operators.python import PythonOperator
+from airflow.providers.docker.operators.docker import DockerOperator
 from datetime import datetime, timedelta
 import sys
+from docker.types import Mount
 
 sys.path.append('/opt/airflow/api-request')
 
@@ -26,3 +28,22 @@ with dag:
             task_id='ingest_data_task',
             python_callable=safe_main_callable
       )
+      
+      task2 = DockerOperator(
+            task_id='transform_data_task',
+            image='ghcr.io/dbt-labs/dbt-postgres:1.9.latest',
+            command='run',
+            working_dir='/usr/app',
+            mounts=[
+                  Mount(source='/mnt/e/data-projects/dbtDataPipeline/repos/weather-data-project/dbt/my_project', 
+                        target='/usr/app',
+                        type='bind'),
+                  Mount(source='/mnt/e/data-projects/dbtDataPipeline/repos/weather-data-project/dbt/profiles.yml', 
+                        target='/root/.dbt/profiles.yml',
+                        type='bind')
+                  ],
+            network_mode='weather-data-project_my_network',
+            docker_url='unix://var/run/docker.sock',
+            auto_remove='success')
+      
+      task1 >> task2
