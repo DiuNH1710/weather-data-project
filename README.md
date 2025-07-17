@@ -23,7 +23,7 @@ graph TD
   Superset --> Transformed
 ```
 
-🗂️ Project Structure
+### 🗂️ Project Structure
 ```
 ├── airflow/
 │   └── dags/               # DAGs for ingestion and dbt
@@ -37,31 +37,31 @@ graph TD
 └── README.md               # Project documentation
 ```
 
-🚀 Features
-⛅ Weather API: fetch real-time temperature, humidity, wind speed
+### 🚀 Features
+  ⛅ Weather API: fetch real-time temperature, humidity, wind speed
+  
+  🐘 PostgreSQL: store raw and transformed data
+  
+  🛠 Airflow: automate API ingestion & dbt transformation
+  
+  🔧 dbt: create analytics models using SQL
+  
+  📊 Superset: build dashboard visualizing weather trends
 
-🐘 PostgreSQL: store raw and transformed data
-
-🛠 Airflow: automate API ingestion & dbt transformation
-
-🔧 dbt: create analytics models using SQL
-
-📊 Superset: build dashboard visualizing weather trends
-
-⚙️ Setup Instructions
-1. Clone the repo
+### ⚙️ Setup Instructions
+#### 1. Clone the repo
 ```
 git clone https://github.com/DiuNH1710/weather-data-project.git
 cd weather-data-project
 ```
-2. Create .env file for Superset
+#### 2. Create .env file for Superset
 
-3. Start all services with Docker Compose
+#### 3. Start all services with Docker Compose
 ```
 docker compose up -d --build
 ```
 
-4. Run Airflow dags manually or wait for schedule
+#### 4. Run Airflow dags manually or wait for schedule
 Visit:
 
 Airflow: http://localhost:8000
@@ -70,25 +70,25 @@ Superset: http://localhost:8088
 
 DB: localhost:5000 (PostgreSQL)
 
-📊 Superset Dashboard Example
-You can visualize:
+### 📊 Superset Dashboard Example
+  You can visualize:
+  
+  Average temperature over time
+  
+  Humidity levels per day
+  
+  Wind speed variations
 
-Average temperature over time
 
-Humidity levels per day
+### 📆 DAG Flow
+  weather_ingestion_dag: pulls weather data from API → PostgreSQL
+  
+  dbt_transformation_dag: triggers dbt run to transform data
 
-Wind speed variations
-
-
-📆 DAG Flow
-weather_ingestion_dag: pulls weather data from API → PostgreSQL
-
-dbt_transformation_dag: triggers dbt run to transform data
-
-💡 Improvements
-Schedule ingestion every 1 hour
-
-Add anomaly detection on temperature spikes
-
-Use Airflow sensors for API availability
+### 💡 Improvements
+  Schedule ingestion every 1 hour
+  
+  Add anomaly detection on temperature spikes
+  
+  Use Airflow sensors for API availability
 
